@@ -17,7 +17,7 @@ In this article, I will explain:
 
 ---
 
-# The Problem
+## The Problem
 
 During routine monitoring, I noticed unusual spikes in:
 
@@ -48,7 +48,7 @@ System logs showed repeated memory exhaustion events.
 
 ---
 
-# Investigating the Attack
+## Investigating the Attack
 
 After analyzing Apache access logs, I found a common pattern:
 
@@ -77,7 +77,7 @@ Further analysis revealed:
 
 ---
 
-# Initial Approach: Firewall IP Blocking
+## Initial Approach: Firewall IP Blocking
 
 My first instinct was to block attacking IP addresses using firewall rules.
 
@@ -124,7 +124,7 @@ At this point, it became clear that IP-based blocking was not a permanent soluti
 
 ---
 
-# Second Approach: Apache Rate Limiting
+## Second Approach: Apache Rate Limiting
 
 Instead of blocking individual IPs, I decided to limit how many requests a client could make.
 
@@ -134,7 +134,7 @@ The objective was simple:
 
 ---
 
-# Installing Apache Security Modules
+## Installing Apache Security Modules
 
 ## Enable Required Modules
 
@@ -145,7 +145,7 @@ sudo systemctl restart apache2
 
 ---
 
-# Installing mod_evasive
+## Installing mod_evasive
 
 Apache's mod_evasive module helps detect and block excessive requests automatically.
 
@@ -156,7 +156,7 @@ sudo apt install libapache2-mod-evasive
 
 ---
 
-# Configuring mod_evasive
+## Configuring mod_evasive
 
 Create configuration:
 
@@ -203,7 +203,7 @@ within 10 seconds
 
 ---
 
-# Protecting XML-RPC Endpoint
+## Protecting XML-RPC Endpoint
 
 Since the attack targeted XML-RPC specifically, I added additional protection.
 
@@ -222,7 +222,7 @@ This reduced abuse while still allowing legitimate traffic if XML-RPC was requir
 
 ---
 
-# Implementing Fail2Ban
+## Implementing Fail2Ban
 
 Rate limiting alone was not enough.
 
@@ -244,7 +244,7 @@ sudo systemctl status fail2ban
 
 ---
 
-# Creating Apache XML-RPC Filter
+## Creating Apache XML-RPC Filter
 
 Create:
 
@@ -264,7 +264,7 @@ ignoreregex =
 
 ---
 
-# Creating Jail Configuration
+## Creating Jail Configuration
 
 ```bash
 sudo nano /etc/fail2ban/jail.local
@@ -288,7 +288,7 @@ bantime = 3600
 
 ---
 
-# How It Works
+## How It Works
 
 Fail2Ban monitors:
 
@@ -317,7 +317,7 @@ The IP is banned for:
 
 ---
 
-# Results After Deployment
+## Results After Deployment
 
 After implementing:
 
@@ -348,7 +348,7 @@ Lower Resource Consumption
 
 ---
 
-# Additional Security Recommendations
+## Additional Security Recommendations
 
 For production WordPress environments, I strongly recommend:
 
@@ -388,7 +388,7 @@ Always update:
 
 ---
 
-# Key Lessons Learned
+## Key Lessons Learned
 
 The biggest lesson from this incident was:
 
